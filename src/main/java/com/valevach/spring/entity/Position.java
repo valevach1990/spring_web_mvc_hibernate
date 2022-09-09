@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class Position {
     @Column(name = "position")
     private String position;
 
-    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "empPosition")
+    @OneToMany(cascade = CascadeType.REMOVE,mappedBy = "position")
     private List<Employee> employeeList;
 
     public Position() {
@@ -35,7 +36,7 @@ public class Position {
             employeeList = new ArrayList<>();
         }
         employeeList.add(emp);
-        emp.setEmpPosition(this);
+
     }
 
     public int getId() {
@@ -61,4 +62,5 @@ public class Position {
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
     }
+
 }

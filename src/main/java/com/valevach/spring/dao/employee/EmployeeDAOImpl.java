@@ -1,7 +1,6 @@
 package com.valevach.spring.dao.employee;
 
 
-
 import com.valevach.spring.entity.Details;
 import com.valevach.spring.entity.Employee;
 import com.valevach.spring.entity.Position;
@@ -21,7 +20,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                 .addAnnotatedClass(Employee.class)
                 .addAnnotatedClass(Details.class)
                 .addAnnotatedClass(Position.class)
-                .addAnnotatedClass(Project.class)
                 .buildSessionFactory()) {
             Session session = factory.getCurrentSession();
             session.beginTransaction();
@@ -55,8 +53,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             session.beginTransaction();
             Query query = session.createQuery("DELETE FROM Employee  " +
                     "WHERE name = :nameParam and surName = :surNameParam");
-          //  query.setParameter("surNameParam", entity.getSurName());
-            query.setParameter("nameParam",entity.getName());
+            //  query.setParameter("surNameParam", entity.getSurName());
+            query.setParameter("nameParam", entity.getName());
             query.executeUpdate();
             session.getTransaction().commit();
         }

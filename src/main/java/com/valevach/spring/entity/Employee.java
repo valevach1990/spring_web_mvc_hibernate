@@ -1,4 +1,5 @@
 package com.valevach.spring.entity;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,15 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "employees")
@@ -25,16 +21,15 @@ public class Employee implements Serializable {
     private int id;
     @Column(name = "name")
     private String name;
-    @Column(name = "details_id")
-    private int details;
-//    @Column(name = "position")
-//    private int position;
-//    @ManyToOne(cascade = CascadeType.REMOVE)
-//    @JoinColumn(name = "position")
-//    private Position empPosition;
-//    @OneToOne(cascade = CascadeType.REMOVE)
-//    @JoinColumn(name = "details")
-//    private Details empDetails;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "details_id")
+    private Details empDetails;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "position")
+    private Position position;
 //
 //    @ManyToMany(cascade = CascadeType.REMOVE)
 //    @JoinTable(name = "emp_projects",
@@ -45,9 +40,8 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(String name, int details) {
+    public Employee(String name) {
         this.name = name;
-        this.details = details;
        // this.position = position;
     }
 
@@ -74,44 +68,30 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    public int getDetails() {
-        return details;
+
+    public Position getPosition() {
+        return position;
     }
 
-    public void setDetails(int details) {
-        this.details = details;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
-//    public int getPosition() {
-//        return position;
-//    }
-//
-//    public void setPosition(int position) {
-//        this.position = position;
-//    }
-//
-//    public Position getEmpPosition() {
-//        return empPosition;
-//    }
-//
-//    public void setEmpPosition(Position empPosition) {
-//        this.empPosition = empPosition;
-//    }
-//
-//    public Details getEmpDetails() {
-//        return empDetails;
-//    }
-//
-//    public void setEmpDetails(Details empDetails) {
-//        this.empDetails = empDetails;
-//    }
+    public Details getEmpDetails() {
+        return empDetails;
+    }
+
+    public void setEmpDetails(Details empDetails) {
+        this.empDetails = empDetails;
+    }
+
 
     @Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", project='" + details + '\'' +
+               // ", project='" + details + '\'' +
               //  ", position='" + position + '\'' +
                 '}';
     }
